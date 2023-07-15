@@ -42,5 +42,20 @@ mpg # categorical: manufacturer, model, trans, drv, fl, class
   
 # Map a continuous variable to color, size, and shape. 
 # How do these aesthetics behave differently for categorical vs. continuous variables?
-  
-  
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = displ))
+# color:gradient vs individual legend
+# shape: A continuous variable cannot be mapped to the shape aesthetic
+
+# What happens if you map the same variable to multiple aesthetics?
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = drv, color = drv, size = drv))
+# What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
+# use to modify the width of the border for shapes that have a border (21-25)
+# What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ < 5)?
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
+# color mapped based on boolean expression
+
