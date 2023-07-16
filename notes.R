@@ -59,3 +59,53 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = displ < 5))
 # color mapped based on boolean expression
 
+# example facet_wrap (subplots)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+
+# example facet_grid (subplots)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+
+# What happens if you facet on a continuous variable?
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ cty, nrow = 2)
+# lots of facets!
+
+# What do the empty cells in plot with facet_grid(drv ~ cyl) mean? How do they relate to this plot?
+# no data for that combination, same combination that does not have a point in the plot 
+
+# scatterplot
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+# fitted line of same data
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+
+# combine two geoms in one plot:
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth()
+
+# overview of extensions/inspiration: https://exts.ggplot2.tidyverse.org/gallery/
+
+# example bar chart
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+
+# What is the default geom associated with stat_summary()? 
+#pointrange
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+
+# equivalent for scatterplot to show all the data, also overlapping values:
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
