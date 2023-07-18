@@ -106,6 +106,27 @@ ggplot(data = diamonds) +
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
 
-# equivalent for scatterplot to show all the data, also overlapping values:
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
+# equivalent for scatterplot to show all the data, also overlapping values: jitter or count
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_jitter(color="red") +
+  geom_count(color = 'blue')
+
+ggplot(data = mpg, mapping = aes(class, hwy)) +
+  geom_boxplot()
+
+read_csv("1,2,3\n4,5,6", col_names = c("x", "y", "z"))
+
+# read_csv and read_tsv are specific cases of the more general read_delim:
+read_delim("1|2|3\n4|5|6", delim = "|", col_names = c("x", "y", "z"))
+
+stocks <- tibble(
+  year   = c(2015, 2015, 2016, 2016),
+  half  = c(   1,    2,     1,    2),
+  return = c(1.88, 0.59, 0.92, 0.17)
+)
+
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return) %>% 
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return")
+# not symmetrical because type of column year is lost
+           
